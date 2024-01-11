@@ -7,14 +7,20 @@ namespace Indexer
 {
     public class Crawler
     {
-        private readonly char[] sep = " \\\n\t\"$'!,?;.:-_**+=)([]{}<>/@&%€#".ToCharArray();
+        private readonly char[] separators = " \\\n\t\"$'!,?;.:-_**+=)([]{}<>/@&%€#".ToCharArray();
+        /* Will be used to spilt text into words. So a word is a maximal sequence of
+         * chars that does not contain any char from separators */
 
         private Dictionary<string, int> words = new Dictionary<string, int>();
-        private List<BEDocument> documents = new List<BEDocument>();
+        /* Will contain all words from files during indexing - thet key is the 
+         * value of the word and the value is its id in the database */
 
-        Database mdatabase;
+        private int documentCounter = 0;
+        /* Will count the number of documents indexed during indexing */
 
-        public Crawler(Database db){ mdatabase = db; }
+        IDatabase mdatabase;
+
+        public Crawler(IDatabase db){ mdatabase = db; }
 
         //Return a dictionary containing all words (as the key)in the file
         // [f] and the value is the number of occurrences of the key in file.
@@ -24,7 +30,7 @@ namespace Indexer
             var content = File.ReadAllLines(f.FullName);
             foreach (var line in content)
             {
-                foreach (var aWord in line.Split(sep, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var aWord in line.Split(separators, StringSplitOptions.RemoveEmptyEntries))
                 {
                     res.Add(aWord);
                 }
@@ -54,22 +60,19 @@ namespace Indexer
             foreach (var file in dir.EnumerateFiles())
                 if (extensions.Contains(file.Extension))
                 {
-                    BEDocument newDoc = new BEDocument
-                    {
-                        mId = documents.Count + 1,
+                    documentCounter++;
+                    BEDocument newDoc = new BEDocument{
+                        mId = documentCounter,
                         mUrl = file.FullName,
                         mIdxTime = DateTime.Now.ToString(),
                         mCreationTime = file.CreationTime.ToString()
                     };
-                    documents.Add(newDoc);
                     
                     mdatabase.InsertDocument(newDoc);
                     Dictionary<string, int> newWords = new Dictionary<string, int>();
                     ISet<string> wordsInFile = ExtractWordsInFile(file);
-                    foreach (var aWord in wordsInFile)
-                    {
-                        if (!words.ContainsKey(aWord))
-                        {
+                    foreach (var aWord in wordsInFile) {
+                        if (!words.ContainsKey(aWord)) {
                             words.Add(aWord, words.Count + 1);
                             newWords.Add(aWord, words[aWord]);
                         }

@@ -7,22 +7,15 @@ namespace Indexer
 {
     public class App
     {
-        public App()
-        {
-        }
-
-        public void Run()
-        {
+        public void Run(){
             Database db = new Database();
             Crawler crawler = new Crawler(db);
-            
 
             var root = new DirectoryInfo(Paths.FOLDER);
 
             DateTime start = DateTime.Now;
 
-            crawler.IndexFilesIn(root, new List<string> { ".txt"});
-            
+            crawler.IndexFilesIn(root, new List<string> { ".txt"});        
 
             TimeSpan used = DateTime.Now - start;
             Console.WriteLine("DONE! used " + used.TotalMilliseconds);
@@ -31,18 +24,13 @@ namespace Indexer
 
             Console.WriteLine($"Indexed {db.GetDocumentCounts()} documents");
             Console.WriteLine($"Number of different words: {all.Count}");
-            Console.WriteLine("The first 100 is:");
-            int c = 100;
-            foreach (var p in all)
-            {
+            int count = 10;
+            Console.WriteLine($"The first {count} is:");
+            foreach (var p in all) {
                 Console.WriteLine("<" + p.Key + ", " + p.Value + ">");
-                c--;
-                if (c == 0) break;
+                count--;
+                if (count == 0) break;
             }
-
-
         }
-
-
     }
 }

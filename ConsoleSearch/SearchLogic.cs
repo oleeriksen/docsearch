@@ -6,11 +6,11 @@ namespace ConsoleSearch
 {
     public class SearchLogic
     {
-        Database mDatabase;
+        IDatabase mDatabase;
 
         Dictionary<string, int> mWords;
 
-        public SearchLogic(Database database)
+        public SearchLogic(IDatabase database)
         {
             mDatabase = database;
             mWords = mDatabase.GetAllWords();

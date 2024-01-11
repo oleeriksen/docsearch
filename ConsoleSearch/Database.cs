@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 
 namespace ConsoleSearch
 {
-    public class Database
+    public class Database : IDatabase
     {
         private SqliteConnection _connection;
         public Database()
@@ -20,7 +20,7 @@ namespace ConsoleSearch
 
             _connection.Open();
 
-            
+
         }
 
         private void Execute(string sql)
@@ -39,16 +39,17 @@ namespace ConsoleSearch
         {
             var res = new List<KeyValuePair<int, int>>();
 
-             /*
-              * SELECT docId, COUNT(wordId) as count
- FROM Occ
- where wordId in (2,3)
- GROUP BY docId
- ORDER BY COUNT(wordId) DESC
-              * 
-              */
+            /* Example sql statement looking for doc id's that
+               contain words with id 2 and 3
+            
+               SELECT docId, COUNT(wordId) as count
+                 FROM Occ
+                WHERE wordId in (2,3)
+             GROUP BY docId
+             ORDER BY COUNT(wordId) DESC 
+             */
 
-             var sql = "SELECT docId, COUNT(wordId) as count FROM Occ where ";
+            var sql = "SELECT docId, COUNT(wordId) as count FROM Occ where ";
             sql += "wordId in " + AsString(wordIds) + " GROUP BY docId ";
             sql += "ORDER BY count DESC;";
 
@@ -61,7 +62,7 @@ namespace ConsoleSearch
                 {
                     var docId = reader.GetInt32(0);
                     var count = reader.GetInt32(1);
-                   
+
                     res.Add(new KeyValuePair<int, int>(docId, count));
                 }
             }
@@ -69,33 +70,15 @@ namespace ConsoleSearch
             return res;
         }
 
-        private string AsString(List<int> x)
-        {
-            string res = "(";
+        private string AsString(List<int> x) => $"({string.Join(',', x)})";
 
-            for (int i = 0; i < x.Count - 1; i++)
-                res += x[i] + ",";
-
-            if (x.Count > 0)
-                res += x[x.Count - 1];
-
-            res += ")";
-
-            return res;
-        }
-        /*
-         * SELECT wordId, COUNT(docId) as count
-FROM Occ
-where wordId in (2,3)
-GROUP BY wordId
-ORDER BY COUNT(docId) DESC;
-        */
+        
 
 
         public Dictionary<string, int> GetAllWords()
         {
             Dictionary<string, int> res = new Dictionary<string, int>();
-      
+
             var selectCmd = _connection.CreateCommand();
             selectCmd.CommandText = "SELECT * FROM word";
 
@@ -105,7 +88,7 @@ ORDER BY COUNT(docId) DESC;
                 {
                     var id = reader.GetInt32(0);
                     var w = reader.GetString(1);
-                    
+
                     res.Add(w, id);
                 }
             }

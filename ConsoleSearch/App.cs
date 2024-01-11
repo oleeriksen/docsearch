@@ -28,11 +28,7 @@ namespace ConsoleSearch
                 var result = mSearchLogic.Search(query, 10);
 
                 if (result.Ignored.Count > 0) {
-                    Console.WriteLine("Ignored: ");
-                    foreach (var aWord in result.Ignored)
-                    {
-                        Console.WriteLine(aWord + ", ");
-                    }
+                    Console.WriteLine($"Ignored: {string.Join(',', result.Ignored)}");
                 }
 
                 int idx = 1;
