@@ -13,6 +13,6 @@
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommonStuff\Shared.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 </Project>
