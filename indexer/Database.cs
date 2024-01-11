@@ -160,5 +160,22 @@ namespace Indexer
             }
             return res;
         }
+
+        public int GetDocumentCounts()
+        {
+
+            var selectCmd = _connection.CreateCommand();
+            selectCmd.CommandText = "SELECT count(*) FROM document";
+
+            using (var reader = selectCmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    var count = reader.GetInt32(0);
+                    return count;
+                }
+            }
+            return -1;
+        }
     }
 }

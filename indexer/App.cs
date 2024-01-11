@@ -29,10 +29,15 @@ namespace Indexer
 
             var all = db.GetAllWords();
 
+            Console.WriteLine($"Indexed {db.GetDocumentCounts()} documents");
+            Console.WriteLine($"Number of different words: {all.Count}");
+            Console.WriteLine("The first 100 is:");
+            int c = 100;
             foreach (var p in all)
             {
                 Console.WriteLine("<" + p.Key + ", " + p.Value + ">");
-                break;
+                c--;
+                if (c == 0) break;
             }
 
 
