@@ -47,10 +47,7 @@ namespace ConsoleSearch
         }
 
         string ArrayAsString(string[] s) {
-            if (s.Length == 0)
-                return "[]";
-            string res = "[";
-            return $"[{String.Join(',', s)}]";
+            return s.Length == 0?"[]":$"[{String.Join(',', s)}]";
             //foreach (var str in s)
             //    res += str + ", ";
             //return res.Substring(0, res.Length - 2) + "]";
