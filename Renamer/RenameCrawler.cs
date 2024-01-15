@@ -2,19 +2,26 @@
 {
     public class RenameCrawler
     {
-        public RenameCrawler()
+        private Crawler c;
+
+        private DirectoryInfo dir;
+
+        public RenameCrawler(DirectoryInfo dir)
         {
+            c = new Crawler();
+            this.dir = dir;
         }
 
-        public void Run()
-        {
-        }
 
         void RenameFile(FileInfo f)
         {
+            Console.WriteLine($"Behandler {f.FullName}");
+
             if (f.FullName.EndsWith(".txt")) return;
 
             if (f.Name.StartsWith('.')) return;
+
+            
 
             var ending = f.FullName.EndsWith(".") ? "txt" : ".txt";
 
@@ -23,22 +30,13 @@
             CountFiles++;
         }
 
-        public void Crawl(DirectoryInfo dir)
-        {
-            Console.WriteLine("Crawling " + dir.FullName);
-
-            foreach (var file in dir.EnumerateFiles())
-                RenameFile(file);
-
-            foreach (var d in dir.EnumerateDirectories())
-                Crawl(d);
-
-            CountFolders++;
+        public void Crawl() {
+            c.Crawl(dir, RenameFile);
         }
 
-        public int CountFiles { get; set; }
+        public int CountFiles { get; private set; }
 
-        public int CountFolders { get; set; }
+        public int CountFolders => c.CountFolders;
 
 
     }

@@ -13,8 +13,6 @@ namespace ConsoleSearch
         public SearchLogic(IDatabase database)
         {
             mDatabase = database;
-            mWords = mDatabase.GetAllWords();
-
         }
 
         /* Perform search of documents containing words from query. The result will
@@ -27,7 +25,7 @@ namespace ConsoleSearch
             DateTime start = DateTime.Now;
 
             // Convert words to wordids
-            var wordIds = GetWordIds(query, out ignored);
+            var wordIds = mDatabase.GetWordIds(query, out ignored);
 
             // perform the search - get all docIds
             var docIds =  mDatabase.GetDocuments(wordIds);
@@ -50,23 +48,5 @@ namespace ConsoleSearch
 
             return new SearchResult(query, docIds.Count, docresult, ignored, DateTime.Now - start);
         }
-
-        private List<int> GetWordIds(String[] query, out List<string> outIgnored)
-        {
-            var res = new List<int>();
-            var ignored = new List<string>();
-            
-            foreach (var aWord in query)
-            {
-                if (mWords.ContainsKey(aWord))
-                    res.Add(mWords[aWord]);
-                else
-                    ignored.Add(aWord);
-            }
-            outIgnored = ignored;
-            return res;
-        }
-
-       
     }
 }

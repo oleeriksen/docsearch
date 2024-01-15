@@ -9,6 +9,9 @@ namespace ConsoleSearch
     public class Database : IDatabase
     {
         private SqliteConnection _connection;
+
+        private Dictionary<string, int> mWords = null;
+
         public Database()
         {
             var connectionStringBuilder = new SqliteConnectionStringBuilder();
@@ -72,10 +75,11 @@ namespace ConsoleSearch
 
         private string AsString(List<int> x) => $"({string.Join(',', x)})";
 
-        
 
 
-        public Dictionary<string, int> GetAllWords()
+       
+
+        private Dictionary<string, int> GetAllWords()
         {
             Dictionary<string, int> res = new Dictionary<string, int>();
 
@@ -165,6 +169,24 @@ namespace ConsoleSearch
                 }
             }
             return result;
+        }
+
+        public List<int> GetWordIds(string[] query, out List<string> outIgnored)
+        {
+            if (mWords == null)
+                mWords = GetAllWords();
+            var res = new List<int>();
+            var ignored = new List<string>();
+
+            foreach (var aWord in query)
+            {
+                if (mWords.ContainsKey(aWord))
+                    res.Add(mWords[aWord]);
+                else
+                    ignored.Add(aWord);
+            }
+            outIgnored = ignored;
+            return res;
         }
     }
 }
