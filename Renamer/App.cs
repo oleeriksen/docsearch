@@ -1,17 +1,18 @@
-﻿namespace Renamer
+﻿using System;
+using Shared;
+
+namespace Renamer
 {
-    public class RenameCrawler
-    {
-        private Crawler c;
+	public class App
+	{
+		public void Run() {
 
-        private DirectoryInfo dir;
-
-        public RenameCrawler(DirectoryInfo dir)
-        {
-            c = new Crawler();
-            this.dir = dir;
+            Crawler renamer = new Crawler();
+            renamer.Crawl(new DirectoryInfo(Paths.FOLDER), RenameFile);
+            Console.WriteLine("Done with");
+            Console.WriteLine("Folders: " + renamer.CountFolders);
+            Console.WriteLine("Files:   " + CountFiles);
         }
-
 
         void RenameFile(FileInfo f)
         {
@@ -21,7 +22,7 @@
 
             if (f.Name.StartsWith('.')) return;
 
-            
+
 
             var ending = f.FullName.EndsWith(".") ? "txt" : ".txt";
 
@@ -30,15 +31,7 @@
             CountFiles++;
         }
 
-        public void Crawl() {
-            c.Crawl(dir, RenameFile);
-        }
-
         public int CountFiles { get; private set; }
-
-        public int CountFolders => c.CountFolders;
-
-
     }
 }
 
