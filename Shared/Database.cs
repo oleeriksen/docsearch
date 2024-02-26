@@ -4,7 +4,7 @@ using Shared;
 using Shared.Model;
 using Microsoft.Data.Sqlite;
 
-namespace ConsoleSearch
+namespace Shared
 {
     public class Database : IDatabase
     {
