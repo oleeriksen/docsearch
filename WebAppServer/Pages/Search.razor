@@ -1,0 +1,43 @@
+﻿@using Shared;
+@page "/search"
+<h1>Search</h1>
+
+<InputText @bind-Value="query"></InputText>
+<button @onclick="OnClickSearch">Search</button>
+
+@if (result != null)
+{
+    <p>Hits:  @result.Hits <br /></p>
+
+    <p>Time used:  @result.TimeUsed.ToString()</p>
+    <table class="table">
+        <tbody>
+            @foreach (var dh in result.DocumentHits)
+            {
+                <tr>
+                    <td>
+                        @dh.Document.mUrl<br />
+                    # hits: @dh.NoOfHits
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+@code {
+
+    private string query = "";
+
+    private SearchLogic mLogic = new SearchLogic(new Database());
+
+    private SearchResult? result;
+
+    private async void OnClickSearch()
+    {
+        result = mLogic.Search(query.Split(" "), 10);
+
+    }
+
+
+}
+

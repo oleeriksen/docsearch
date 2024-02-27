@@ -1,0 +1,45 @@
+﻿@using Shared
+@page "/search_old"
+
+<PageTitle>Search</PageTitle>
+
+<h1>Search</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@if (result != null)
+{
+    int idx = 1;
+    foreach (var doc in result.DocumentHits)
+    {
+        <p>
+            @idx : @doc.Document.mUrl -- contains @doc.NoOfHits search terms <br />
+            Index time: @doc.Document.mIdxTime<br />
+        </p>
+        idx++;
+    }
+<p>Summary: Documents: @result.Hits . Time: @result.TimeUsed.TotalMilliseconds</p>
+
+
+}
+
+@code {
+    private int currentCount = 0;
+
+    SearchResult? result;
+
+    private void IncrementCount()
+    {
+        SearchLogic sl = new SearchLogic(new Database());
+        var query = new string[] { "mail" };
+        result = sl.Search(query, 10);
+        currentCount++;
+
+
+    }
+}
+
+
+
