@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Shared.Model;
+using Shared;
 
-namespace Shared
+namespace SearchAPI.Logic
 {
     public class SearchLogic : ISearchLogic
     {
@@ -43,10 +43,22 @@ namespace Shared
             {
                 var missing = mDatabase.WordsFromIds(mDatabase.getMissing(doc.mId, wordIds));
 
-                docresult.Add(new DocumentHit(doc, docIds[idx++].Value, missing));
+                docresult.Add(new DocumentHit
+                {
+                    Document = doc,
+                    NoOfHits = docIds[idx++].Value,
+                    Missing = missing
+                });
             }
 
-            return new SearchResult(query, docIds.Count, docresult, ignored, DateTime.Now - start);
+            return new SearchResult
+            {
+                Query = query,
+                Hits = docIds.Count,
+                DocumentHits = docresult,
+                Ignored = ignored,
+                TimeUsed = DateTime.Now - start
+            };
         }
     }
 }
