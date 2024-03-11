@@ -12,7 +12,7 @@ namespace ConsoleSearch
 
         public void Run()
         {
-            SearchLogic mSearchLogic = new SearchLogic(new Database());
+            ISearchLogic mSearchLogic = SearchFactory.GetSearchLogic();
             
 
             Console.WriteLine("Console Search");

@@ -15,12 +15,12 @@
             @foreach (var dh in result.DocumentHits)
             {
                 <tr>
-                    <td>
-                        @dh.Document.mUrl<br />
-                    # hits: @dh.NoOfHits
-                </td>
-            </tr>
-        }
+                    <td>     
+                        <a href="file://@dh.Document.mUrl">@dh.Document.mUrl</a><br />
+                        (# hits: @dh.NoOfHits)
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 }
@@ -28,16 +28,13 @@
 
     private string query = "";
 
-    private SearchLogic mLogic = new SearchLogic(new Database());
+    private ISearchLogic mLogic = SearchFactory.GetSearchLogic();
 
     private SearchResult? result;
 
-    private async void OnClickSearch()
+    private void OnClickSearch()
     {
         result = mLogic.Search(query.Split(" "), 10);
-
     }
-
-
 }
 

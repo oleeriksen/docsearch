@@ -4,7 +4,7 @@ using Shared.Model;
 
 namespace Shared
 {
-    public class SearchLogic
+    public class SearchLogic : ISearchLogic
     {
         IDatabase mDatabase;
 
@@ -28,7 +28,7 @@ namespace Shared
             var wordIds = mDatabase.GetWordIds(query, out ignored);
 
             // perform the search - get all docIds
-            var docIds =  mDatabase.GetDocuments(wordIds);
+            var docIds = mDatabase.GetDocuments(wordIds);
 
             // get ids for the first maxAmount             
             var top = new List<int>();
@@ -42,7 +42,7 @@ namespace Shared
             foreach (var doc in mDatabase.GetDocDetails(top))
             {
                 var missing = mDatabase.WordsFromIds(mDatabase.getMissing(doc.mId, wordIds));
-                  
+
                 docresult.Add(new DocumentHit(doc, docIds[idx++].Value, missing));
             }
 
