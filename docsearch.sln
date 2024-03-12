@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.txt = README.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{3551940F-5CAC-4EB7-8514-629705C73335}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Shared\Core.csproj", "{3551940F-5CAC-4EB7-8514-629705C73335}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renamer", "Renamer\Renamer.csproj", "{9068B2BF-D52C-42F7-8D1F-4A26BABCFFDA}"
 EndProject

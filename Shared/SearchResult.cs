@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Shared.Model;
+using Core.Model;
 
-namespace Shared
+namespace Core
 {
     /*
      * A data class representing the result of a search.

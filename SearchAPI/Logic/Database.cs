@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Shared;
+using Core;
 using Shared.Model;
 using Microsoft.Data.Sqlite;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using Shared;
-namespace Shared
+namespace Core
 {
     public class SearchFactory
     {

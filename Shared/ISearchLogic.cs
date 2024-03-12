@@ -1,4 +1,4 @@
-﻿namespace Shared
+﻿namespace Core
 {
     public interface ISearchLogic
     {

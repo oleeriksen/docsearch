@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Shared;
+using Core;
+using Core.Model;
 
 namespace SearchAPI.Logic
 {
