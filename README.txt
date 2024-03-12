@@ -1,4 +1,4 @@
-﻿Version 1: 12-2-2024
+﻿Version 2: 12-03-2024
 
 A seachengine that consist of an indexer and a search program.
 
@@ -18,5 +18,13 @@ and the ConsoleSearch. It contains:
 The project Renamer is a console program used to rename all files in a
 folder. Current version will rename all files with no extension to have
 .txt as extension.
+
+Version 2:
+
+1. A project for a webapp to perform searching is added - see WebAppServer.
+
+2. The core search logic is encapsulated in an API - see SearchAPI.
+
+3. The class library Shared is renamed to Core - a much better name.
 
 
