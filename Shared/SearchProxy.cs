@@ -5,7 +5,7 @@ using System.Text.Json;
 using Shared;
 using static System.Net.WebRequestMethods;
 
-namespace ConsoleSearch.Service
+namespace Shared
 {
     public class SearchProxy : ISearchLogic
     {

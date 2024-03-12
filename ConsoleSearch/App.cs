@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ConsoleSearch.Service;
 using Shared;
 
 namespace ConsoleSearch
@@ -13,7 +12,7 @@ namespace ConsoleSearch
 
         public void Run()
         {
-            ISearchLogic mSearchLogic = SearchFactory.GetSearchLogic();// SearchFactory.GetSearchLogic();
+            ISearchLogic mSearchLogic = SearchFactory.GetProxy();
             
 
             Console.WriteLine("Console Search");

@@ -8,15 +8,11 @@
   <ItemGroup>
     <None Remove="SQLitePCLRaw.core" />
     <None Remove="Microsoft.Data.Sqlite" />
-    <None Remove="Service\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\" />
   </ItemGroup>
 </Project>

@@ -1,10 +1,10 @@
 ﻿using System;
 using Shared;
-namespace WebAppServer.Service
+namespace Shared
 {
     public class SearchFactory
     {
-        public static ISearchLogic GetSearchLogic() {
+        public static ISearchLogic GetProxy() {
             return new SearchProxy();
         }
     }

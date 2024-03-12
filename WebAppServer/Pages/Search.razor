@@ -1,5 +1,4 @@
 ﻿@using Shared;
-@using WebAppServer.Service;
 @page "/search"
 <h1>Search</h1>
 
@@ -16,20 +15,31 @@
             @foreach (var dh in result.DocumentHits)
             {
                 <tr>
-                    <td>     
-                        <a href="file://@dh.Document.mUrl">@dh.Document.mUrl</a><br />
+                    <td>
+                        <a class="link-info" href="" @onclick="() => OnClickDocUrl(dh.Document.mUrl)" @onclick:preventDefault>
+                            @dh.Document.mUrl</a>
                         (# hits: @dh.NoOfHits)
-                    </td>
+                     </td>
+
                 </tr>
-            }
+                   }
         </tbody>
     </table>
-}
+    <ModalDialog @ref="@modalDialog" Title="Indhold">
+        <div class="row">
+            <h3>@fileUrl</h3>
+            <hr>
+            <p>@fileContent</p>
+            <button class="btn btn-primary" @onclick="() => modalDialog.Close()">Close</button>
+        </div>
+    </ModalDialog>}
 @code {
+    private string fileUrl = "";
+    private string fileContent = "";
 
     private string query = "";
 
-    private ISearchLogic mLogic = SearchFactory.GetSearchLogic();
+    private ISearchLogic mLogic = SearchFactory.GetProxy();
 
     private SearchResult? result;
 
@@ -37,5 +47,14 @@
     {
         result = mLogic.Search(query.Split(" "), 10);
     }
+
+    private void OnClickDocUrl(string url) {
+        var s = File.ReadAllText(url);
+        fileUrl = url;
+        fileContent = s;
+        modalDialog.Open();
+    }
+
+    private ModalDialog? modalDialog { get; set; }
 }
 
