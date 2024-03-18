@@ -11,12 +11,6 @@ namespace SearchAPI.Controllers
     [Route("api/search")]
     public class SearchController : ControllerBase
     {
-        private IConfiguration mConfig;
-        public SearchController(IConfiguration _config)
-        {
-            mConfig = _config;
-        }
-
         [HttpGet]
         [Route("{query}/{maxAmount}")]
         public SearchResult Search(string query, int maxAmount)
@@ -30,8 +24,7 @@ namespace SearchAPI.Controllers
         [Route("ping")]
         public string? Ping()
         {
-            return mConfig.GetValue<string>("Id");
-
+            return Environment.GetEnvironmentVariable("id");
         }
 
 

@@ -25,7 +25,19 @@
       "launchUrl": "api/search/ping",
       "applicationUrl": "https://localhost:7132;http://localhost:5036",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "id": "Search API 1"
+      },
+      "dotnetRunMessages": true
+    },
+    "https2": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api/search/ping",
+      "applicationUrl": "https://localhost:7133;http://localhost:5037",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "id": "Search API 2"
       },
       "dotnetRunMessages": true
     },

@@ -9,7 +9,7 @@ namespace Core
 {
     public class SearchProxy : ISearchLogic
     {
-        private string serverEndPoint = "https://localhost:7132/api/search/";
+        private string serverEndPoint = "https://localhost:7271/api/search/";
 
         private HttpClient mHttp;
 

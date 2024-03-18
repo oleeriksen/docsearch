@@ -1,4 +1,4 @@
-﻿namespace SearchAPI2;
+﻿namespace LoadBalancer;
 
 public class Program
 {
